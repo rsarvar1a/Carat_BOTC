@@ -191,20 +191,6 @@ class Other(commands.Cog):
                                               "can ignore this restriction",
                                   color=0xe100ff)
         st_embed.set_thumbnail(url=self.bot.user.avatar.url)
-        st_embed.add_field(name=">OpenKibitz [game number]",
-                           value='Makes the kibitz channel to the game visible to the public. Players will still need '
-                                 'to remove their game role to see it. Use after the game has concluded. Will also '
-                                 'send a message reminding players to give feedback for the ST and provide a link to '
-                                 'do so. In most cases, EndGame may be the more appropriate command.\n' +
-                                 'Usage examples: `>OpenKibitz 1` `>OpenKibitz x3`',
-                           inline=False)
-        st_embed.add_field(name=">CloseKibitz [game number]",
-                           value='Makes the kibitz channel to the game hidden from the public. This is typically '
-                                 'already the case when you claim a grimoire, but might not be in some cases. Make '
-                                 'sure none of your players have the kibitz role, as they could still see the channel '
-                                 'in that case.\n' +
-                                 'Usage examples: `>CloseKibitz 1`, `>CloseKibitz x3`',
-                           inline=False)
         st_embed.add_field(name=">ArchiveGame [game number]",
                            value='Moves the game channel to the archive and creates a new empty channel for the next '
                                  'game. Also makes the kibitz channel hidden from the public. Use after post-game '
@@ -274,18 +260,6 @@ class Other(commands.Cog):
                                  'user.\n' +
                                  'Usage examples: `>RemovePlayer 1 793448603309441095`, '
                                  '`>RemovePlayer x3 @Alex @Ben @Celia`',
-                           inline=False)
-        st_embed.add_field(name=">AddKibitz [game number] [at least one user] (Requires ST Role or Mod)",
-                           value='Gives the appropriate kibitz role to the given users. You can provide a user by ID, '
-                                 'mention/ping, or nickname, though giving the nickname may find the wrong user.\n' +
-                                 'Usage examples: `>AddKibitz 1 793448603309441095`, `>AddKibitz x3 @Alex @Ben @Celia`',
-                           inline=False)
-        st_embed.add_field(name=">RemoveKibitz [game number] [at least one user] (Requires ST Role or Mod)",
-                           value='Removes the appropriate kibitz role from the given users. You can provide a user by '
-                                 'ID, mention/ping, or nickname, though giving the nickname may find the wrong '
-                                 'user.\n' +
-                                 'Usage examples: `>RemoveKibitz 1 793448603309441095`, '
-                                 '`>RemoveKibitz x3 @Alex @Ben @Celia`',
                            inline=False)
         st_embed.set_footer(text="2/4")
 
