@@ -11,8 +11,7 @@ from nextcord.utils import get
 
 import utility
 
-ivy_id = 183474450237358081
-
+rohan = 84045472511033344
 
 @dataclass_json
 @dataclass
@@ -163,7 +162,7 @@ class Archive(commands.Cog):
 
         access = self.helper.authorize_mod_command(ctx.author)
         # Ivy Access
-        if access or ctx.author.id == ivy_id:
+        if access or ctx.author.id == rohan:
             # React on Approval
             await utility.start_processing(ctx)
             channel_history = channel_to_archive.history(limit=None, oldest_first=True)

@@ -58,29 +58,6 @@ def default_game_channel_overwrites(game_role: nextcord.Role, st_role: nextcord.
     return permissions
 
 
-async def default_kibitz_channel_overwrites(game_role: nextcord.Role,
-                                            st_role: nextcord.Role,
-                                            kibitz_role: nextcord.Role,
-                                            helper: utility.Helper
-                                            ) -> Dict[nextcord.Role, nextcord.PermissionOverwrite]:
-    permissions = {}
-    bot_role = get(helper.Guild.roles, name=(await helper.bot.application_info()).name)
-    permissions[bot_role] = nextcord.PermissionOverwrite(view_channel=True)
-    total_ban_role = get(helper.Guild.roles, name="tb")
-    if total_ban_role is not None:
-        permissions[total_ban_role] = nextcord.PermissionOverwrite(send_messages=False, send_messages_in_threads=False,
-                                                                   create_public_threads=False,
-                                                                   create_private_threads=False, add_reactions=False)
-    permissions[st_role] = nextcord.PermissionOverwrite(view_channel=True, send_messages=True, manage_messages=True)
-    permissions[game_role] = nextcord.PermissionOverwrite(view_channel=False, send_messages=False)
-    permissions[kibitz_role] = nextcord.PermissionOverwrite(view_channel=True, send_messages=True)
-    blind_role = get(helper.Guild.roles, name="blind")
-    if blind_role is not None:
-        permissions[blind_role] = nextcord.PermissionOverwrite(view_channel=False)
-    permissions[helper.Guild.default_role] = nextcord.PermissionOverwrite(view_channel=False)
-    return permissions
-
-
 def parse_date(inp: str) -> Optional[date]:
     try:
         # number of days

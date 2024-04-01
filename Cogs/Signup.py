@@ -26,8 +26,6 @@ class Signup(commands.Cog):
         st_names = [st.display_name for st in st_role.members]
         player_role = self.helper.get_game_role(game_number)
         player_names = [player.display_name for player in player_role.members]
-        kibitz_role = self.helper.get_kibitz_role(game_number)
-        kibitz_names = [kibitzer.display_name for kibitzer in kibitz_role.members]
 
         output_string = f"Game {game_number} Players\n" \
                         f"Storyteller:\n"
@@ -35,9 +33,6 @@ class Signup(commands.Cog):
 
         output_string += "\nPlayers:\n"
         output_string += "\n".join(player_names)
-
-        output_string += "\nKibitz members:\n"
-        output_string += "\n".join(kibitz_names)
 
         dm_success = await utility.dm_user(ctx.author, output_string)
         if not dm_success:
@@ -101,7 +96,6 @@ class SignupView(nextcord.ui.View):
         game_number = str(number_of_fields["footer"]["text"])
         game_role = self.helper.get_game_role(game_number)
         st_role = self.helper.get_st_role(game_number)
-        kibitz_role = self.helper.get_kibitz_role(game_number)
 
         signup_limit = len(number_of_fields["fields"])
 
@@ -119,7 +113,6 @@ class SignupView(nextcord.ui.View):
             await utility.dm_user(interaction.user, "The game is currently full, please contact the Storyteller")
         else:
             await interaction.user.add_roles(game_role)
-            await interaction.user.remove_roles(kibitz_role)
             await self.update_signup_sheet(interaction.message)
             for st in st_role.members:
                 await utility.dm_user(st,

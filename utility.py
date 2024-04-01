@@ -111,19 +111,6 @@ class Helper:
         logging.info(f"Game channel {number} not found")
         return None
 
-    def get_kibitz_channel(self, number: str) -> Optional[nextcord.TextChannel]:
-        if number[0] == "r":
-            name = "rsvp-kibitz-" + number[1:]
-        elif number[0] == "x":
-            name = "experimental-kibitz-" + number[1:]
-        else:
-            # b-games also follow this format
-            name = "kibitz-game-" + number
-        channel = get(self.Guild.channels, name=name)
-        if channel is None:
-            logging.warning(f"Could not find kibitz channel for game {number}")
-        return channel
-
     def get_game_role(self, number: str) -> Optional[nextcord.Role]:
         name = "game" + number
         role = get(self.Guild.roles, name=name)
@@ -136,13 +123,6 @@ class Helper:
         role = get(self.Guild.roles, name=name)
         if role is None:
             logging.warning(f"Could not find ST role for game {number}")
-        return role
-
-    def get_kibitz_role(self, number: str) -> Optional[nextcord.Role]:
-        name = "kibitz" + number
-        role = get(self.Guild.roles, name=name)
-        if role is None:
-            logging.warning(f"Could not find kibitz role for game {number}")
         return role
 
     def authorize_st_command(self, author: Union[nextcord.Member, nextcord.User], game_number: str):

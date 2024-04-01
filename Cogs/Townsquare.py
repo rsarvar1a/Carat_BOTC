@@ -195,8 +195,8 @@ class Townsquare(commands.Cog):
             json.dump(json_data, f, indent=2)
 
     async def log(self, game_number: str, message: str):
-        kibitz = self.helper.get_kibitz_channel(game_number)
-        log_thread = get(kibitz.threads, id=self.town_squares[game_number].log_thread)
+        logchannel = self.helper.get_game_channel(game_number)
+        log_thread = get(logchannel.threads, id=self.town_squares[game_number].log_thread)
         await log_thread.send((format_dt(utcnow()) + ": " + message)[:2000])
 
     async def update_nom_message(self, game_number: str, nom: Nomination):
@@ -303,19 +303,19 @@ class Townsquare(commands.Cog):
             player_list = [Player(p.id, p.display_name) for p in players]
             st_list = [Player(st.id, st.display_name) for st in self.helper.get_st_role(game_number).members]
             self.town_squares[game_number] = TownSquare(player_list, st_list)
-            kibitz = self.helper.get_kibitz_channel(game_number)
+            logchannel = self.helper.get_game_channel(game_number)
             try:
-                log_thread = await kibitz.create_thread(
-                    name="Nomination & Vote Logging Thread",
+                log_thread = await logchannel.create_thread(
+                    name="CARAT LOGGING",
                     auto_archive_duration=4320,
                     type=nextcord.ChannelType.private_thread)
             except nextcord.HTTPException:
-                old_logging_threads = [t for t in kibitz.threads if t.name == "Nomination & Vote Logging Thread"]
+                old_logging_threads = [t for t in logchannel.threads if t.name == "CARAT LOGGING"]
                 old_logging_threads.sort(key=lambda t: t.create_timestamp)
                 try:
                     await old_logging_threads[0].delete()
-                    log_thread = await kibitz.create_thread(
-                        name="Nomination & Vote Logging Thread",
+                    log_thread = await logchannel.create_thread(
+                        name="CARAT LOGGING",
                         auto_archive_duration=4320,
                         type=nextcord.ChannelType.private_thread)
                 except nextcord.HTTPException:
