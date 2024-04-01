@@ -332,6 +332,14 @@ class Townsquare(commands.Cog):
             await utility.deny_command(ctx, "You are not the storyteller for this game")
 
     @commands.command()
+    async def SetLogThread(self, ctx: commands.Context, game_number: str):
+        if self.helper.authorize_st_command(ctx.author, game_number):
+            self.town_squares[game_number].log_thread = ctx.message.thread.id
+            await self.log(game_number, "Logging enabled in this thread")
+        else:
+            await utility.deny_command(ctx, "You are not the storyteller for this game")
+
+    @commands.command()
     async def UpdateTownSquare(self, ctx: commands.Context, game_number: str,
                                players: commands.Greedy[nextcord.Member]):
         """Updates the town square for the given game, with the given players.
